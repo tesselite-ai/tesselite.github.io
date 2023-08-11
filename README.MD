@@ -27,7 +27,7 @@ We race those versions concurrently and let Tesselite algorithm arbitrate.
 
 | version                                                                                   | host                        | lead dev                       |
 |-------------------------------------------------------------------------------------------|-----------------------------|--------------------------------|
-| v0.0.x                                                                                    | sites.google.com            | [me](#contributors)            |
+| [v0.0.x](https://github.com/tesselite/tesselite.github.io/tree/v0.0.x#sitesgoogle)        | sites.google.com            | [me](#contributors)            |
 | [v0.1.x](https://github.com/tesselite/tesselite.github.io/tree/v0.1.x#dockerized-website) | self-hosted in Google Cloud | [me](#contributors)            |
 | v0.2.x                                                                                    | self-hosted in Google Cloud | [external team](#contributors) |
 
