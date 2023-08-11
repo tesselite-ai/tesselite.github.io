@@ -2,6 +2,6 @@
 
 ## [0.0.0] - 11.08.-2023
 
-### Features
+### Patch
 
-- backup website document with the Ci
+- add readme doc

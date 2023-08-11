@@ -1,7 +1,5 @@
 # Sites.Google
 
-![workflow](https://github.com/tesselite/tesselite.github.io/actions/workflows/backup.yml/badge.svg)
-
 This version uses google sites to deploy Tesselite website.
 
 ### philosophy of this version
@@ -20,7 +18,6 @@ This version uses google sites to deploy Tesselite website.
 - sync up with other teams before updating the behavior of the backend
 
 
-- backup the document from time to time with the [Ci](.github/workflows/backup.yml)
 
 
 ### deploy loop
