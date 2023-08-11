@@ -18,7 +18,7 @@ jobs:
           ref: v0.0.x
       - uses: google-github-actions/auth@v0
         with:
-          credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
+          credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
       - uses: r7kamura/google-docs-to-github@v3
         with:
           github_branch: v0.0.x
