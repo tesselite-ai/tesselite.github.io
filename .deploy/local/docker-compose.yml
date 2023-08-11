@@ -17,7 +17,7 @@ services:
     hostname: ai.tesselite
     image: marcelndeffo/tesselite:web-0.0.0
     build:
-      context: ..
+      context: ../..
       dockerfile: .build/dockerfile
     ports:
       - "8000:8000"
