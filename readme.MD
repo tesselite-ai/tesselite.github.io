@@ -1,6 +1,8 @@
 # Dockerized Website
 
-packages Tesselite website into old-fashioned Html with static resources.
+![workflow](https://github.com/tesselite/tesselite.github.io/actions/workflows/docker.yml/badge.svg)
+
+This version packages Tesselite website into old-fashioned Html + static resources.
 
 ### philosophy of this version
 
