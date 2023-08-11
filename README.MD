@@ -38,6 +38,6 @@ $ docker compose -f .deploy/local/docker-compose.yml up
 
 ### change Log
 
-[here](changeLog.MD)
+[here](CHANGELOG.MD)
 
 
