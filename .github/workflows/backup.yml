@@ -10,7 +10,7 @@ on:
     - cron: "0 0 * * *"
 
 jobs:
-  publish:
+  backup:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,10 +18,10 @@ jobs:
           ref: v0.0.x
       - uses: google-github-actions/auth@v0
         with:
-          credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
       - uses: r7kamura/google-docs-to-github@v3
         with:
           github_branch: v0.0.x
           github_directory: sites.google
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          google_drive_folder_id: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
+          google_drive_folder_id: "${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}"
