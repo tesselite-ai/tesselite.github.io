@@ -1,7 +1,7 @@
 # Tesselite.App
 
 
-*"Race your deployments. Build the best of your product. Your real champion."*
+*"Race your deployments. Build the best version of your product. Your real champion."*
 
 ---
 
@@ -9,7 +9,7 @@ We demonstrate Tesselite motto with the very website of Tesselite.
 
 We race different versions of Tesselite website. 
 
-Those versions are different on many layers:
+Those versions are different on many levels:
 
 - different philosophy
 
