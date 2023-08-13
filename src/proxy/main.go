@@ -20,7 +20,7 @@ func main() {
 	router.Static("/static", "static")
 	router.LoadHTMLGlob("index.html")
 	router.GET("/", Home)
-    server := &http.Server{Addr: ":8000", Handler: router}
+    server := &http.Server{Addr: ":80", Handler: router}
     go func() {
     if err := server.ListenAndServe(); err != http.ErrServerClosed {
         log.Fatal(err.Error())}
