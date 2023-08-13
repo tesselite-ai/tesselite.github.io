@@ -14,12 +14,18 @@ func Home(ctx *gin.Context) {
 	ctx.HTML(http.StatusOK, "index.html", nil)
 }
 
+func Ping(ctx *gin.Context) {
+    ctx.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+    ctx.String(200, "pong")
+}
+
 func main() {
     gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	router.Static("/static", "static")
 	router.LoadHTMLGlob("index.html")
 	router.GET("/", Home)
+    router.GET("/ping", Ping)
     server := &http.Server{Addr: ":80", Handler: router}
     go func() {
     if err := server.ListenAndServe(); err != http.ErrServerClosed {

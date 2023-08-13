@@ -20,9 +20,9 @@ services:
       context: ../..
       dockerfile: .build/dockerfile
     ports:
-      - "8000:8000"
+      - "8000:80"
     healthcheck:
-      test: curl ai.tesselite:8000 || exit 1
+      test: curl ai.tesselite:80 || exit 1
       interval: 20s
       timeout: 5s
       retries: 3
