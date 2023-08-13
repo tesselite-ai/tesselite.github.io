@@ -26,7 +26,7 @@ func main() {
 	router.LoadHTMLGlob("index.html")
 	router.GET("/", Home)
     router.GET("/ping", Ping)
-    server := &http.Server{Addr: ":80", Handler: router}
+    server := &http.Server{Addr: ":8080", Handler: router}
     go func() {
     if err := server.ListenAndServe(); err != http.ErrServerClosed {
         log.Fatal(err.Error())}
