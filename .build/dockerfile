@@ -29,4 +29,4 @@ COPY --from=pre-build --chown=server:server /build/main /run
 
 ENV PATH=$PATH:/run
 
-CMD main
+ENTRYPOINT main
