@@ -1,4 +1,0 @@
-
-[submodule ".deploy/remote"]
-	path = .deploy/remote
-	url = git@github.com:tesselite/deploy
