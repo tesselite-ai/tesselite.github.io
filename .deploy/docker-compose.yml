@@ -9,14 +9,14 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.04"
-          memory: "100MB"
+          cpus: "0.12"
+          memory: "500MB"
     logging:
       options:
         max-size: "1m"
         max-file: "5"
     hostname: ai.tesselite
-    image: marcelndeffo/tesselite:web-0.2.0
+    image: marcelndeffo/tesselite:web-0.2.1
     build:
       context: ..
       dockerfile: .build/dockerfile
@@ -33,8 +33,8 @@ services:
       WORDPRESS_DB_USER: exampleuser
       WORDPRESS_DB_PASSWORD: examplepass
       WORDPRESS_DB_NAME: exampledb
-    volumes:
-      - wordpress:/var/www/html
+#    volumes:
+#      - wordpress:/var/www/html
 
   db:
     container_name: db
