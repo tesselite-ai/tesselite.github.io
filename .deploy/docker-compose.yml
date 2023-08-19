@@ -3,6 +3,7 @@ version: "3.5"
 services:
 
   web:
+    depends_on: [db]
     container_name: web
     restart: always
     deploy:
@@ -15,15 +16,40 @@ services:
         max-size: "1m"
         max-file: "5"
     hostname: ai.tesselite
-    image: marcelndeffo/tesselite:web-0.0.0
+    image: marcelndeffo/tesselite:web-0.2.0
     build:
       context: ..
       dockerfile: .build/dockerfile
-    ports:
-      - "8000:8000"
     healthcheck:
       test: curl ai.tesselite:8000 || exit 1
       interval: 20s
       timeout: 5s
       retries: 3
       start_period: 20s
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    volumes:
+      - wordpress:/var/www/html
+
+  db:
+    container_name: db
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+volumes:
+  wordpress:
+  db:

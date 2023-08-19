@@ -27,4 +27,4 @@ jobs:
         context: "{{defaultContext}}:."
         file: ".build/dockerfile"
         push: true
-        tags: marcelndeffo/tesselite:web-0.0.0
+        tags: marcelndeffo/tesselite:web-0.2.0
