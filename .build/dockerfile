@@ -1,4 +1,4 @@
-FROM golang:1.20-alpine3.18 as pre-build
+FROM golang:1.20-alpine as pre-build
 
 WORKDIR /build
 
@@ -7,7 +7,7 @@ COPY src/proxy/ .
 #Build binary
 RUN go build -o main
 
-FROM alpine3.18
+FROM alpine
 
 EXPOSE 8080
 
