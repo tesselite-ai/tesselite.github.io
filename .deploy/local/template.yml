@@ -1,0 +1,17 @@
+version: "3.5"
+
+services:
+
+  .base:
+    hostname: ai.tesselite
+    image: busybox
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "0.04"
+          memory: "200MB"
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "5"

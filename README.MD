@@ -34,6 +34,8 @@ To update version online, do this:
 $ docker compose -f .deploy/local/docker-compose.yml build
 ## run the container
 $ docker compose -f .deploy/local/docker-compose.yml up
+#stop the container
+$ docker compose -f .deploy/local/docker-compose.yml down
 ````
 
 ### change Log

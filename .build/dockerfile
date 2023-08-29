@@ -7,7 +7,7 @@ COPY src/proxy/ .
 #Build binary
 RUN go build -o main
 
-FROM alpine:3.18
+FROM alpine3.18
 
 EXPOSE 8080
 
@@ -29,4 +29,4 @@ COPY --from=pre-build --chown=server:server /build/main /run
 
 ENV PATH=$PATH:/run
 
-ENTRYPOINT main
+CMD main

@@ -1,0 +1,5 @@
+groups:
+- name: cpu-node
+  rules:
+  - record: average_cpu_usage_20s
+    expr: sum by (instance) (100 - ((rate(node_cpu_seconds_total{job="node",mode="idle"}[20s])) * 100))

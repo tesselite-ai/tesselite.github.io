@@ -4,26 +4,87 @@ services:
 
   web:
     container_name: web
-    restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: "0.04"
-          memory: "100MB"
-    logging:
-      options:
-        max-size: "1m"
-        max-file: "5"
-    hostname: ai.tesselite
-    image: marcelndeffo/tesselite:web-0.0.0
+    extends:
+      service: .base
+      file: template.yml
+    image: marcelndeffo/tesselite:web-0.1.4
     build:
       context: ../..
       dockerfile: .build/dockerfile
     ports:
       - "8000:8080"
     healthcheck:
-      test: curl ai.tesselite:80 || exit 1
+      test: curl ai.tesselite:8080 || exit 1
       interval: 20s
       timeout: 5s
       retries: 3
       start_period: 20s
+    networks:
+      web-subnet:
+        ipv4_address: 10.10.0.2
+
+  metrics:
+    container_name: metrics
+    extends:
+      service: .base
+      file: template.yml
+    image: marcelndeffo/tools:metrics
+    ports:
+      - "9100:9100"
+    volumes:
+#      - "/var/lib/docker/:/var/lib/docker:ro"
+#      - "/sys:/sys:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      web-subnet:
+        ipv4_address: 10.10.0.3
+
+  prom:
+    container_name: prom
+    extends:
+      service: .base
+      file: template.yml
+    image: prom/prometheus
+    volumes:
+      - "../conf/prom/prometheus.yml:/etc/prometheus/prometheus.yml"
+      - "../conf/prom/prometheus.rules.yml:/etc/prometheus/prometheus.rules.yml"
+    ports:
+      - "9090:9090"
+    networks:
+      web-subnet:
+        ipv4_address: 10.10.0.4
+    extra_hosts:
+      - "com.tesselite.docker:10.10.0.3"
+
+
+  locust:
+    extends:
+      service: .base
+      file: template.yml
+    deploy:
+      resources:
+        limits:
+          cpus: "0.12"
+          memory: "200MB"
+    container_name: locust
+    image: locustio/locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - "../conf/locust/locustfile.py:/mnt/locust/locustfile.py"
+    command: -f /mnt/locust/locustfile.py
+    environment:
+      SERVER: python
+    networks:
+      web-subnet:
+        ipv4_address: 10.10.0.5
+    extra_hosts:
+      - "web:10.10.0.2"
+
+
+networks:
+  web-subnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.0.0/24
