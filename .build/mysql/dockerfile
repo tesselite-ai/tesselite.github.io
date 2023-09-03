@@ -1,0 +1,19 @@
+FROM mysql:debian
+
+RUN apt update && apt install -y ca-certificates openssl && update-ca-certificates
+
+COPY --from=marcelndeffo/tesselite:debian  /usr/bin/spin-service  /usr/bin/
+
+COPY --from=marcelndeffo/tesselite:debian  /usr/bin/tessel  /usr/bin/
+
+RUN mkdir -p /home/mysql/
+
+RUN chown -R mysql /home/mysql/
+
+#RUN chown -R mysql /var/lib/mysql
+
+#USER mysql
+
+CMD AUTO_BACKUP=/var/lib/mysql spin-service mysqld;
+
+

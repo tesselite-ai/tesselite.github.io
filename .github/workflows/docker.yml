@@ -10,6 +10,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - { service: "mysql",  tag: "mysql" }
+          - { service: "wordpress",  tag: "web-0.2.4" }
     steps:
     - uses: actions/checkout@v3
     - name: Set up Docker Buildx
@@ -23,7 +28,6 @@ jobs:
       id: docker_build
       uses: docker/build-push-action@v3
       with:
-        context: "{{defaultContext}}:."
-        file: ".build/dockerfile"
+        context: "{{defaultContext}}:.build/${{ matrix.service }}"
         push: true
-        tags: marcelndeffo/tesselite:web-0.2.3
+        tags: marcelndeffo/tools:${{ matrix.tag }}

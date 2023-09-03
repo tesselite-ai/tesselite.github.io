@@ -1,0 +1,80 @@
+version: "3.5"
+
+services:
+
+  web:
+    depends_on: [db]
+    container_name: web
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "0.12"
+          memory: "300MB"
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "5"
+    hostname: web-v2.tesselite.app
+    image: marcelndeffo/tesselite:web-v2.0.3
+    healthcheck:
+      test: curl -v web-v2.tesselite.app:80 || exit 1
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    volumes:
+      - "./site.conf:/etc/apache2/sites-available/000-default.conf:ro"
+      - "./server.conf:/etc/apache2/apache2.conf:ro"
+    ports:
+      - "80:80"
+    environment:
+      TESSELITE_DSN: web-v2.tesselite.app
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: tesselite
+      WORDPRESS_DB_PASSWORD: tesselite
+      WORDPRESS_DB_NAME: tesselite
+      WP_HOME: http://web-v2.tesselite.app:80
+      WP_SITEURL: http://web-v2.tesselite.app:80
+    networks:
+      web-v2-subnet:
+        ipv4_address: 10.30.0.2
+    extra_hosts:
+      - "localhost:10.30.0.3"
+
+
+  db:
+    container_name: db
+    hostname: mysql-local.tesselite.com
+    image: mysql:8.0.3
+    restart: always
+    environment:
+      MYSQL_DATABASE : "tesselite"
+      MYSQL_USER : "tesselite"
+      MYSQL_PASSWORD : "tesselite"
+      MYSQL_RANDOM_ROOT_PASSWORD : "1"
+    ports:
+      - "3306:3306"
+    networks:
+      web-v2-subnet:
+        ipv4_address: 10.30.0.3
+
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    ports:
+      - "8001:8080"
+    networks:
+      web-v2-subnet:
+        ipv4_address: 10.30.0.7
+    extra_hosts:
+      - "db:10.30.0.3"
+
+
+networks:
+  web-v2-subnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.30.0.0/24
